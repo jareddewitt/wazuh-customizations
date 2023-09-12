@@ -1,0 +1,25 @@
+<!-- Brute force detections -->
+<!-- Frequency and timeframe set for 3 failures in 5 min -->
+
+<group name="sqlbrute">
+  <rule id="777000" level="5" frequency="3" timeframe="300">
+    <if_matched_sid>61071</if_matched_sid>
+    <options>alert_by_email</options>
+    <description>MS SQL Brute Force</description>
+    <mitre>
+     <id>T1110</id>
+    </mitre>
+  </rule>
+</group>
+
+
+<group name="winbrute">
+  <rule id="777001" level="5" frequency="3" timeframe="300">
+    <if_matched_sid>60122</if_matched_sid>
+    <options>alert_by_email</options>
+    <description>Windows Brute Force</description>
+    <mitre>
+     <id>T1110</id>
+    </mitre>
+  </rule>
+</group>

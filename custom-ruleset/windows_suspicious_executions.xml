@@ -1,0 +1,153 @@
+<!-- Suspicous priviledged execution -->
+<!-- Group 666XXX -->
+<!-- Custom ruleset for suspicious execution of privileged functions -->
+<!-- The idea behind these to help with meeting the needs of NIST SP800-171 3.1.7 -->
+
+<!-- Modifying file attributes -->
+<group name="attrib">
+  <rule id="666000" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)ATTRIB\s+\+h|ATTRIB.EXE\s+\+h|ATTRIB\s+\+s\s+\+h|ATTRIB.exe\s+\+s\s+\+h</field>
+    <description>attrib was used to hide files or directories. Current directory: $(win.eventdata.currentDirectory).</description>
+    <mitre>
+      <id>T1564.001</id>
+    </mitre>
+  </rule>
+</group>
+
+<!-- Modifying boot configurations -->
+<group name="bcdedit">
+  <rule id="666001" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)BCDEdit\s+/set|BCDEdit.exe\s+/set</field>
+    <description>BCDEdit set an entry option.</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+  </rule>
+
+  <rule id="666002" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)BCDEdit\s+/f\s+/delete|BCDEdit\s+/delete|BCDEdit.exe\s+/f\s+/delete|BCDEdit.exe\s+/delete</field>
+    <description>BCDEdit deleted an element from a specified entry.</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+  </rule>
+
+  <rule id="666003" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)BCDEdit.exe\s+/import|BCDEdit\s+/import</field>
+    <description>BCDEdit imported a file to restore the state of the system store.</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+  </rule>
+</group>
+
+<!-- Modifying volume shadown copies -->
+<group name="vssadmin">
+  <rule id="666004" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)VSSADMIN\s+delete\s+shadows|VSSADMIN.exe\s+delete\s+shadows</field>
+    <description>vssadmin deleted shadow copies.</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+  </rule>
+
+  <rule id="666005" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)VSSADMIN\s+resize\s+shadowstorage|VSSADMIN.exe\s+resize\s+shadowstorage</field>
+    <description>vssadmin resized a shadow copy storage.</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+  </rule>
+</group>
+
+<!-- Modifying/adding scheduled tasks for persistance -->
+<group name="schtasks">
+  <rule id="666006" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)SCHTASKS\s+/CREATE|SCHTASKS.EXE\s+/CREATE</field>
+    <description>schtasks attempted to create a new task: $(win.eventdata.commandLine).</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+  <rule id="666007" level="15">
+    <if_sid>100651</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)\/XML\s.+.XML</field>
+    <description>schtasks created a new task using an XML file: $(win.eventdata.commandLine).</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+  <rule id="666008" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)SCHTASKS\s+/Delete|SCHTASKS.EXE\s+/Delete</field>
+    <description>schtasks attempted to delete a scheduled task: $(win.eventdata.commandLine).</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+</group>
+
+<!-- Enumerating AD for recon and lateral movement -->
+<group name="nltest">
+  <rule id="666010" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)nltest\s+\/domain_trusts</field>
+    <description>Network Location Test enumerating active directory.</description>
+    <mitre>
+      <id>T1482</id>
+    </mitre>
+  </rule>
+
+  <rule id="666011" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)nltest\s+\/dclist|nltest\s+\/dsgetdc</field>
+    <description>Network Location Test enumerating remote domain controllers.</description>
+    <mitre>
+      <id>T1018</id>
+    </mitre>
+  </rule>
+
+  <rule id="666012" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)nltest\s+\/parentdomain</field>
+    <description>Network Location Test enumerating parent domain of a local machine.</description>
+    <mitre>
+      <id>T1016</id>
+    </mitre>
+  </rule>
+</group>
+
+<!-- User and group enumeration. Used for recon and lateral movement -->
+<group name="Account Enumeration">
+  <rule id="666013" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)net\s+user|net\.exe\s+user|net\s+localgroup|net\.exe\s+localgroup|net\s+account|net\.exe\s+account|get\-localuser|dscl|dscl\.exe|net\s+group|net\.exe\s+group</field>
+    <description>Local and Domain Account Discovery</description>
+    <mitre>
+      <id>T1087.001</id>
+      <id>T1087.002</id>
+    </mitre>
+  </rule>
+</group>
+
+<!-- Querying for running applications through powershell.  -->
+<!-- This will not work yet, we need a way to catch powershell commands with sysmon -->
+<group name="Application Discovery">
+  <rule id="666014" level="15">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)get\-process</field>
+    <description>Application Discovery within Powershell</description>
+    <mitre>
+      <id>T1010</id>
+    </mitre>
+  </rule>
+</group>

@@ -1,0 +1,11 @@
+<!-- Sysmon exclusions, USE AT YOUR OWN RISK -->
+<!-- Group 888XXX -->
+
+<!-- Exclude whitelisted applications -->
+<group name="sysmon-exclusions">
+  <rule id="888000" level="0">
+  <if_group>sysmon_event_10|sysmon_event1|sysmon</if_group>
+  <match>Grammarly|Tanium</match>
+  <description>Excluding whitelisted applications</description>
+ </rule>
+</group>

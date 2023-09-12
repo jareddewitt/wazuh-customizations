@@ -1,0 +1,15 @@
+<!-- This rule needs to be used in conjunction with the correct ossec.conf setting on the agent -->
+<!-- This rule should be updated to fire when rule 550 is fired instead of overwriting -->
+
+<group name="ossec,">
+  <rule id="550" level="7" overwrite="yes">
+    <category>ossec</category>
+    <decoded_as>syscheck_integrity_changed</decoded_as>
+    <options>alert_by_email</options>
+    <description>Integrity checksum changed.</description>
+    <mitre>
+      <id>T1565.001</id>
+    </mitre>
+    <group>syscheck,syscheck_entry_modified,syscheck_file,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,hipaa_164.312.c.1,hipaa_164.312.c.2,nist_800_53_SI.7,tsc_PI1.4,tsc_PI1.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+</group>
