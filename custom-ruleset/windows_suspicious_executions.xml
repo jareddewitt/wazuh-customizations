@@ -77,8 +77,9 @@
     </mitre>
   </rule>
 
+<!-- wrong "if_sid"-->
   <rule id="666007" level="15">
-    <if_sid>100651</if_sid>
+    <if_sid>61603</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)\/XML\s.+.XML</field>
     <description>schtasks created a new task using an XML file: $(win.eventdata.commandLine).</description>
     <mitre>

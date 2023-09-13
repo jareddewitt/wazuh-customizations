@@ -1,0 +1,27 @@
+<!-- Local Group Chagnes -->
+<!-- Group 999XXX -->
+
+<group name="local_administrators_group">
+    <rule id="999001" level="15">
+        <if_sid>60144,60145</if_sid>
+        <field name="win.eventdata.targetSid">^%{S-1-5-32-544}$|^S-1-5-32-544$</field>
+        <options>no_full_log</options>
+        <description>Administrators group changed.</description>
+        <mitre>
+            <id>T1484</id>
+        </mitre>
+    </rule>
+</group>
+
+<!-- Remote Desktop Users group -->
+<group name="remote_desktop_users_group">
+    <rule id="999002" level="15">
+        <if_sid>60144,60145</if_sid>
+        <field name="win.eventdata.targetSid">^%{S-1-5-32-555}$|^S-1-5-32-555$</field>
+        <options>no_full_log</options>
+        <description>Remote desktop users group changed.</description>
+        <mitre>
+            <id>T1484</id>
+        </mitre>
+    </rule>
+</group>
