@@ -131,7 +131,7 @@
 <group name="Account Enumeration">
   <rule id="666013" level="15">
     <if_sid>61603</if_sid>
-    <field name="win.eventdata.commandLine" type="pcre2">(?i)net\s+user|net\.exe\s+user|net\s+localgroup|net\.exe\s+localgroup|net\s+account|net\.exe\s+account|get\-localuser|dscl|dscl\.exe|net\s+group|net\.exe\s+group</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)net\s+user|net\.exe\s+user|net\s+localgroup|net\.exe\s+localgroup|net\s+accounts|net\.exe\s+accounts|get\-localuser|dscl|dscl\.exe|net\s+group|net\.exe\s+group</field>
     <description>Local and Domain Account Discovery</description>
     <mitre>
       <id>T1087.001</id>

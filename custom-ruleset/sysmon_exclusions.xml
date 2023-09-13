@@ -9,3 +9,13 @@
   <description>Excluding whitelisted applications</description>
  </rule>
 </group>
+
+<!-- .LNK exclusions. -->
+<!-- There isn't a way to exclude just exclude excel and word.  -->
+<!-- Until Wazuh allows for multiple regular expressions using a boolean like "AND", we have to thow out baby with bathwater and rely on AV for .LNK catches-->
+<group name="sysmon-LNK-exclusions">
+  <rule id="92214" level="0" overwrite="yes">
+  <options>no_log</options>
+  <description>Excluding all LNK file matches</description>
+ </rule>
+</group>
