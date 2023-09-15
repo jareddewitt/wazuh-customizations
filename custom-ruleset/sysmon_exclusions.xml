@@ -10,6 +10,15 @@
  </rule>
 </group>
 
+<!-- exclusion for ossec performing SCA checks-->
+<group name="ossec-sca-exclusions">
+  <rule id="888001" level="0">
+  <if_group>Account Enumeration</if_group>
+  <match>wazuh\-agent\.exe</match>
+  <description>Excluding OSSECs SCA checks</description>
+ </rule>
+</group>
+
 <!-- .LNK exclusions. -->
 <!-- There isn't a way to exclude just exclude excel and word.  -->
 <!-- Until Wazuh allows for multiple regular expressions using a boolean like "AND", we have to thow out baby with bathwater and rely on AV for .LNK catches-->
@@ -17,5 +26,16 @@
   <rule id="92214" level="0" overwrite="yes">
   <options>no_log</options>
   <description>Excluding all LNK file matches</description>
+ </rule>
+</group>
+
+
+<!-- We still want to log these but don't want them at level 15 -->
+<!-- There are too many operational uses for appdata folders and this causes alert fitigue -->
+<!-- Fall back on EDR and AV to watch for malware -->
+<group name="sysmon-exec-appdata-folder">
+  <rule id="92213" level="10" overwrite="yes">
+  <options>no_full_log</options> 
+  <description>Executable filed dropped in folder commonly used by malware</description>
  </rule>
 </group>
