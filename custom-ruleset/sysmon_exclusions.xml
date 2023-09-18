@@ -14,7 +14,7 @@
 <group name="ossec-sca-exclusions">
   <rule id="888001" level="0">
   <if_group>Account Enumeration</if_group>
-  <match>wazuh\-agent\.exe</match>
+  <match>ossec</match>
   <description>Excluding OSSECs SCA checks</description>
  </rule>
 </group>
