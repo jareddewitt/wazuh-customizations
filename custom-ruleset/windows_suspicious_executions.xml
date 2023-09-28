@@ -141,12 +141,11 @@
 </group>
 
 <!-- Querying for running applications through powershell.  -->
-<!-- This will not work yet, we need a way to catch powershell commands with sysmon -->
-<group name="Application Discovery">
+<group name="Privileged Functions">
   <rule id="666014" level="15">
     <if_sid>61603</if_sid>
-    <field name="win.eventdata.commandLine" type="pcre2">(?i)get\-process</field>
-    <description>Application Discovery within Powershell</description>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)psexec|psexec\.exe|sc|sc\.exe|icacls|icacls\.exe|accesschk|accesschk\.exe</field>
+    <description>Privileged function detected</description>
     <mitre>
       <id>T1010</id>
     </mitre>
