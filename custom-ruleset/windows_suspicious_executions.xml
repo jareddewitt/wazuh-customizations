@@ -140,12 +140,24 @@
   </rule>
 </group>
 
-<!-- Querying for running applications through powershell.  -->
-<group name="Privileged Functions">
+<group name="Command Line Privileged Functions">
   <rule id="666014" level="15">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)psexec|psexec\.exe|sc|sc\.exe|icacls|icacls\.exe|accesschk|accesschk\.exe</field>
     <description>Privileged function detected</description>
+    <mitre>
+      <id>T1010</id>
+    </mitre>
+  </rule>
+</group>
+
+
+<!-- POWERSHELL Section -->
+<!-- Bad idea to injest all of 800.  Plenty of SCCM and Tanium jobs are generating logs for 800 -->
+<group name="Powershell Privileged Functions">
+  <rule id="666015" level="15">
+    <field name="win.system.eventID">^800$</field>
+    <description>Test</description>
     <mitre>
       <id>T1010</id>
     </mitre>
